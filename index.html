@@ -93,11 +93,22 @@ h2{font-size:35px;line-height:1.05;margin:10px 0 16px}
 .nav-btn{flex:1;border:1px solid color-mix(in srgb,var(--theme) 45%,transparent);background:#fffaf0;color:var(--theme-dark);border-radius:99px;padding:11px 7px;font-size:9px;letter-spacing:.04em}.nav-btn:disabled{opacity:.25}
 .dots{display:flex;gap:5px;margin:13px}.dot{width:5px;height:5px;border-radius:8px;background:#ddc9a8}.dot.on{width:16px;background:var(--theme)}
 .back{border:0;background:none;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:12px}
-#petals{position:absolute;inset:0;pointer-events:none;z-index:4;overflow:hidden}.petal{position:absolute;top:-30px;color:var(--gold);opacity:0;animation:petalFall var(--duration) linear var(--delay) infinite}
-@keyframes petalFall{0%{transform:translateY(-5vh) rotate(0);opacity:0}10%{opacity:.45}90%{opacity:.25}100%{transform:translate(var(--drift),110vh) rotate(330deg);opacity:0}}
+#petals{position:absolute;inset:0;pointer-events:none;z-index:4;overflow:hidden}.petal{position:absolute;top:-30px;color:#c9a45f;opacity:0;animation:goldConfettiFall var(--duration) linear var(--delay) infinite;will-change:transform,opacity}
+.petal:nth-child(4n){width:4px;height:10px;background:linear-gradient(90deg,#9e7936,#f5df9a,#b38b43);border-radius:1px;color:transparent}
+.petal:nth-child(4n+1){width:5px;height:5px;background:#d7b56d;transform:rotate(45deg);color:transparent}
+.petal:nth-child(4n+2){width:3px;height:12px;background:linear-gradient(180deg,#f7e5ae,#b58b3f);border-radius:2px;color:transparent}
+.petal:nth-child(4n+3){width:4px;height:4px;background:#f0d48b;border-radius:50%;color:transparent}
+@keyframes goldConfettiFall{0%{transform:translate3d(0,-5vh,0) rotate(0deg);opacity:0}8%{opacity:.78}45%{opacity:.58}90%{opacity:.45}100%{transform:translate3d(var(--drift),110vh,0) rotate(620deg);opacity:0}}
 .music-toggle{position:fixed;right:14px;bottom:14px;z-index:10;border:1px solid var(--gold-light);border-radius:99px;background:#fffaf0ed;color:var(--ink);padding:11px 14px;font-size:10px;letter-spacing:.06em;box-shadow:0 4px 18px #6e4b2414;display:flex;align-items:center;gap:8px}
 .music-dot{width:7px;height:7px;border-radius:50%;background:#8b9a7b}.music-toggle[aria-pressed="true"] .music-dot{background:var(--gold);animation:pulse 1.5s infinite}@keyframes pulse{50%{box-shadow:0 0 0 7px #b28a4e00}}
 
+
+
+/* Use the NP artwork cleanly, without a circular badge around it */
+#reveal .logo-mark,#events .logo-mark,#event .logo-mark{width:min(46vw,190px);height:auto;aspect-ratio:auto;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;overflow:visible}
+#reveal .logo-mark:before,#reveal .logo-mark:after,#events .logo-mark:before,#events .logo-mark:after,#event .logo-mark:before,#event .logo-mark:after{display:none!important}
+#reveal .logo-mark img,#events .logo-mark img,#event .logo-mark img{width:100%;height:auto;max-height:130px;object-fit:contain;mix-blend-mode:multiply}
+#reveal .logo-mark{margin:8px auto 12px}
 
 /* Keep the monogram as the final reveal: no logo during suspense */
 #intro .logo-mark,#clue1 .logo-mark,#clue2 .logo-mark,#clue3 .logo-mark{display:none!important}
@@ -157,7 +168,7 @@ function openEnvelope(){const cover=document.getElementById('intro');if(!cover||
 function openEvent(i){currentEvent=i;renderEvent();go('event');}
 function shiftEvent(delta){currentEvent=Math.max(0,Math.min(events.length-1,currentEvent+delta));renderEvent();}
 function renderEvent(){const e=events[currentEvent],screen=document.getElementById('event');screen.dataset.theme=e.theme;document.getElementById('eventCouple').src=e.image;document.getElementById('eventCouple').alt='Naman and Pratishtha in '+e.title+' outfits';document.getElementById('eventCouple').style.animation='none';void document.getElementById('eventCouple').offsetWidth;document.getElementById('eventCouple').style.animation='coupleFloat 4.5s ease-in-out infinite, portraitIn .9s cubic-bezier(.2,.8,.2,1) both';document.getElementById('eventArt').textContent=e.art;document.getElementById('eventType').textContent=e.type;document.getElementById('eventTitle').textContent=e.title;document.getElementById('eventSub').textContent=e.sub;document.getElementById('eventDate').textContent=e.date;document.getElementById('eventTime').textContent=e.time;document.getElementById('eventVenue').textContent=e.venue;document.getElementById('prevEvent').disabled=currentEvent===0;document.getElementById('nextEvent').disabled=currentEvent===events.length-1;document.getElementById('dots').innerHTML=events.map((_,i)=>`<span class="dot ${i===currentEvent?'on':''}"></span>`).join('');}
-const petals=document.getElementById('petals');for(let i=0;i<15;i++){const el=document.createElement('span');el.className='petal';el.textContent=['✧','✦','❀','·'][i%4];el.style.left=(i*6.5+Math.random()*3)+'%';el.style.setProperty('--duration',(13+Math.random()*13)+'s');el.style.setProperty('--delay',(-Math.random()*25)+'s');el.style.setProperty('--drift',(-30+Math.random()*60)+'px');petals.appendChild(el);}
+const petals=document.getElementById('petals');for(let i=0;i<15;i++){const el=document.createElement('span');el.className='petal';el.textContent='';el.style.left=(i*6.5+Math.random()*3)+'%';el.style.setProperty('--duration',(13+Math.random()*13)+'s');el.style.setProperty('--delay',(-Math.random()*25)+'s');el.style.setProperty('--drift',(-30+Math.random()*60)+'px');petals.appendChild(el);}
 // Gentle ambient tones, initiated only after a tap because mobile browsers block autoplay.
 let audioCtx=null,musicMaster=null,musicOn=false,musicTimer=null;
 function startMusic(){
