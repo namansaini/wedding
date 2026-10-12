@@ -65,6 +65,11 @@ h2{font-size:35px;line-height:1.05;margin:10px 0 16px}
 .music-toggle{position:fixed;right:14px;bottom:14px;z-index:10;border:1px solid var(--gold-light);border-radius:99px;background:#fffaf0ed;color:var(--ink);padding:11px 14px;font-size:10px;letter-spacing:.06em;box-shadow:0 4px 18px #6e4b2414;display:flex;align-items:center;gap:8px}
 .music-dot{width:7px;height:7px;border-radius:50%;background:#8b9a7b}.music-toggle[aria-pressed="true"] .music-dot{background:var(--gold);animation:pulse 1.5s infinite}@keyframes pulse{50%{box-shadow:0 0 0 7px #b28a4e00}}
 
+
+/* Keep the monogram as the final reveal: no logo during suspense */
+#intro .logo-mark,#clue1 .logo-mark,#clue2 .logo-mark,#clue3 .logo-mark{display:none!important}
+#reveal .logo-mark,#events .logo-mark,#event .logo-mark{display:flex}
+
 .logo-mark{overflow:hidden;background:#fffdf8;border-color:#d7c49b}
 .logo-mark img{display:block;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply}
 .envelope .logo-mark{width:56px;height:56px;border:0;border-radius:0;background:transparent}
@@ -75,7 +80,7 @@ h2{font-size:35px;line-height:1.05;margin:10px 0 16px}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 </style></head>
 <body><main class="shell"><div class="grain"></div><div id="petals" aria-hidden="true"></div>
-<button class="music-toggle" id="musicToggle" aria-pressed="false"><span class="music-dot"></span><span id="musicLabel">Play soft music</span></button>
+<button class="music-toggle" id="musicToggle" aria-pressed="false"><span class="music-dot"></span><span id="musicLabel">Play shehnai & santoor</span></button>
 <section class="screen active" id="intro">
 <span class="floating f1">✦</span><span class="floating f2">✧</span><span class="floating f3">❀</span><span class="floating f4">✧</span>
 <div class="eyebrow">A little mystery · A lot of love</div><div class="ornament">❧</div>
@@ -115,9 +120,34 @@ function shiftEvent(delta){currentEvent=Math.max(0,Math.min(events.length-1,curr
 function renderEvent(){const e=events[currentEvent],screen=document.getElementById('event');screen.dataset.theme=e.theme;document.getElementById('eventCouple').src=e.image;document.getElementById('eventCouple').alt='Naman and Pratishtha in '+e.title+' outfits';document.getElementById('eventCouple').style.animation='none';void document.getElementById('eventCouple').offsetWidth;document.getElementById('eventCouple').style.animation='coupleFloat 4.5s ease-in-out infinite, portraitIn .9s cubic-bezier(.2,.8,.2,1) both';document.getElementById('eventArt').textContent=e.art;document.getElementById('eventType').textContent=e.type;document.getElementById('eventTitle').textContent=e.title;document.getElementById('eventSub').textContent=e.sub;document.getElementById('eventDate').textContent=e.date;document.getElementById('eventTime').textContent=e.time;document.getElementById('eventVenue').textContent=e.venue;document.getElementById('prevEvent').disabled=currentEvent===0;document.getElementById('nextEvent').disabled=currentEvent===events.length-1;document.getElementById('dots').innerHTML=events.map((_,i)=>`<span class="dot ${i===currentEvent?'on':''}"></span>`).join('');}
 const petals=document.getElementById('petals');for(let i=0;i<15;i++){const el=document.createElement('span');el.className='petal';el.textContent=['✧','✦','❀','·'][i%4];el.style.left=(i*6.5+Math.random()*3)+'%';el.style.setProperty('--duration',(13+Math.random()*13)+'s');el.style.setProperty('--delay',(-Math.random()*25)+'s');el.style.setProperty('--drift',(-30+Math.random()*60)+'px');petals.appendChild(el);}
 // Gentle ambient tones, initiated only after a tap because mobile browsers block autoplay.
-let audioCtx=null,musicMaster=null,musicOn=false;
-function startMusic(){const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return; if(!audioCtx){audioCtx=new AC();musicMaster=audioCtx.createGain();musicMaster.gain.value=.025;musicMaster.connect(audioCtx.destination);[174.61,220,261.63,329.63].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=i===0?'sine':'triangle';o.frequency.value=f;g.gain.value=[.3,.16,.1,.06][i];o.connect(g);g.connect(musicMaster);o.start();});}audioCtx.resume();musicOn=true;document.getElementById('musicToggle').setAttribute('aria-pressed','true');document.getElementById('musicLabel').textContent='Soft music on';}
-function stopMusic(){if(audioCtx)audioCtx.suspend();musicOn=false;document.getElementById('musicToggle').setAttribute('aria-pressed','false');document.getElementById('musicLabel').textContent='Play soft music';}
+let audioCtx=null,musicMaster=null,musicOn=false,musicTimer=null;
+function startMusic(){
+ const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+ if(!audioCtx){
+   audioCtx=new AC();
+   musicMaster=audioCtx.createGain();musicMaster.gain.value=.20;musicMaster.connect(audioCtx.destination);
+   // A soft tanpura-like drone under an original shehnai/santoor-inspired melodic phrase.
+   const drone=audioCtx.createGain();drone.gain.value=.16;drone.connect(musicMaster);
+   [110,164.81,220].forEach((f,i)=>{const o=audioCtx.createOscillator(),g=audioCtx.createGain(),lp=audioCtx.createBiquadFilter();o.type=i===0?'sawtooth':'triangle';o.frequency.value=f;lp.type='lowpass';lp.frequency.value=650;g.gain.value=[.16,.055,.045][i];o.connect(lp);lp.connect(g);g.connect(drone);o.start();});
+   const lead=audioCtx.createGain();lead.gain.value=.26;lead.connect(musicMaster);
+   const melody=[293.66,329.63,392,440,392,329.63,293.66,261.63,293.66,329.63,392,329.63,293.66,261.63,220,261.63];
+   function pluck(freq,when,duration){
+     const o=audioCtx.createOscillator(),g=audioCtx.createGain(),lp=audioCtx.createBiquadFilter();
+     o.type='triangle';o.frequency.setValueAtTime(freq,when);o.frequency.exponentialRampToValueAtTime(freq*.995,when+duration);
+     lp.type='lowpass';lp.frequency.value=1900;g.gain.setValueAtTime(.0001,when);g.gain.exponentialRampToValueAtTime(.18,when+.015);g.gain.exponentialRampToValueAtTime(.0001,when+duration);
+     o.connect(lp);lp.connect(g);g.connect(lead);o.start(when);o.stop(when+duration+.03);
+   }
+   function schedulePhrase(){
+     if(!audioCtx||audioCtx.state==='closed')return;
+     const now=audioCtx.currentTime+.08;
+     melody.forEach((f,i)=>{const t=now+i*.42;pluck(f,t,.48);if(i%4===0)pluck(f*1.5,t+.12,.32);});
+     musicTimer=setTimeout(schedulePhrase,melody.length*420);
+   }
+   schedulePhrase();
+ }
+ audioCtx.resume();musicOn=true;document.getElementById('musicToggle').setAttribute('aria-pressed','true');document.getElementById('musicLabel').textContent='Shehnai & santoor on';
+}
+function stopMusic(){if(musicTimer)clearTimeout(musicTimer);if(audioCtx)audioCtx.suspend();musicOn=false;document.getElementById('musicToggle').setAttribute('aria-pressed','false');document.getElementById('musicLabel').textContent='Play shehnai & santoor';}
 document.getElementById('musicToggle').addEventListener('click',()=>musicOn?stopMusic():startMusic());
 renderEvent();
 </script></body></html>
