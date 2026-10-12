@@ -33,7 +33,7 @@
   .env-flap{position:absolute;top:30px;left:0;width:0;height:0;border-left:145px solid transparent;border-right:145px solid transparent;border-top:100px solid #ddc5a0;transform-origin:top;transition:transform .8s ease;z-index:2}
   .env-letter{position:absolute;left:12%;right:12%;top:0;height:130px;background:#fffaf2;border:1px solid #e4d4ba;display:flex;align-items:center;justify-content:center;transition:transform .8s ease;z-index:1}
   .seal{position:absolute;top:83px;left:50%;transform:translateX(-50%);z-index:3;width:42px;height:42px;border-radius:50%;background:var(--gold);color:#fff4df;display:flex;align-items:center;justify-content:center;font:23px 'Cormorant Garamond',serif;box-shadow:0 2px 6px #76511e30;transition:opacity .3s}
-  .envelope.open .env-flap{transform:rotateX(180deg);z-index:0}.envelope.open .env-letter{transform:translateY(-76px)}.envelope.open .seal{opacity:0}
+  .envelope.open .env-flap{transform:rotateX(180deg);z-index:0}.envelope.open .env-letter{transform:translateY(-76px)}.envelope.open .seal{opacity:0}.envelope.open:after{content:"✦  ✧  ✦";position:absolute;top:-8px;left:0;right:0;text-align:center;color:var(--gold);font-size:20px;letter-spacing:.5em;animation:burst 1s ease both;z-index:5}@keyframes burst{0%{opacity:0;transform:translateY(20px) scale(.6)}40%{opacity:1;transform:translateY(-12px) scale(1.15)}100%{opacity:0;transform:translateY(-30px) scale(1.3)}}
   .clue-num{font-size:10px;letter-spacing:.25em;color:var(--gold);margin-bottom:18px}
   .reveal-line{font:500 36px/1.12 'Cormorant Garamond',serif;text-align:center;max-width:330px;margin:0 auto 22px}
   .reveal-line em{color:var(--gold);font-style:normal}
@@ -68,6 +68,58 @@
   .event-tile span{display:block;font:500 25px 'Cormorant Garamond',serif;margin-bottom:5px}.event-tile small{font-size:9px;letter-spacing:.12em;color:var(--gold);text-transform:uppercase}
   .back{border:0;background:none;color:var(--muted);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:12px}
   .footer-note{font:italic 17px 'Cormorant Garamond',serif;color:var(--muted);text-align:center;margin-top:20px}
+
+
+
+  #reveal .eyebrow,#reveal .monogram,#reveal .name-reveal,#reveal h2,#reveal .avatars,#reveal .copy,#reveal .cta{animation:revealUp .8s cubic-bezier(.2,.75,.2,1) both}
+  #reveal .eyebrow{animation-delay:.05s}#reveal .monogram{animation-delay:.2s}#reveal .name-reveal{animation-delay:.42s}#reveal h2{animation-delay:.58s}#reveal .avatars{animation-delay:.72s}#reveal .copy{animation-delay:.88s}#reveal .cta{animation-delay:1s}
+  @keyframes revealUp{from{opacity:0;transform:translateY(22px) scale(.98);filter:blur(3px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
+  .screen.exit-reveal{animation:screenFade .45s ease both}
+  @keyframes screenFade{to{opacity:0;transform:scale(.985);filter:blur(4px)}}
+
+  /* Each celebration has its own visual identity */
+  .event-screen{--theme:#a52b3c;--theme-dark:#541725;--theme-light:#fff0ee;--theme-accent:#e4b6a5;--theme-ink:#4a2026;background:radial-gradient(ellipse at 50% 0%,var(--theme-light),#fffaf3 65%,#f4e7dc)}
+  .event-screen[data-theme="red"]{--theme:#a5283d;--theme-dark:#541522;--theme-light:#fae4e2;--theme-accent:#e8b8a8;--theme-ink:#4c2028}
+  .event-screen[data-theme="yellow"]{--theme:#c38b16;--theme-dark:#68430c;--theme-light:#fff2b9;--theme-accent:#f4d86d;--theme-ink:#59400e;background:radial-gradient(ellipse at top,#fff8d8,#fff9e8 55%,#f4e7c2)}
+  .event-screen[data-theme="green"]{--theme:#356c48;--theme-dark:#173d2c;--theme-light:#dfeedd;--theme-accent:#a9c99b;--theme-ink:#1e4933;background:radial-gradient(ellipse at top,#eaf5e5,#f9f8ee 60%,#e0eadc)}
+  .event-screen[data-theme="gold"]{--theme:#a77b28;--theme-dark:#5a3d12;--theme-light:#f5e4b7;--theme-accent:#dfc17b;--theme-ink:#4b3818;background:radial-gradient(ellipse at top,#fff4d6,#fbf2df 58%,#ead7ad)}
+  .event-screen[data-theme="red"] .event-card{border-color:color-mix(in srgb,var(--theme) 45%,transparent)}
+  .event-screen .event-card{border:1px solid color-mix(in srgb,var(--theme) 45%,transparent);background:color-mix(in srgb,var(--theme-light) 36%,#fffaf3);box-shadow:0 18px 48px color-mix(in srgb,var(--theme) 13%,transparent);border-radius:3px}
+  .event-screen .event-card:before{border-color:color-mix(in srgb,var(--theme) 28%,transparent)}
+  .event-screen .monogram{border-color:var(--theme-accent);color:var(--theme)}
+  .event-screen .event-type,.event-screen .detail-label{color:var(--theme)}
+  .event-screen .event-title{color:var(--theme-dark);font-size:clamp(42px,11vw,54px)}
+  .event-screen .name-reveal{color:var(--theme-dark);text-shadow:0 2px 0 color-mix(in srgb,var(--theme-accent) 50%,transparent)}
+  .event-screen .cta,.event-screen .nav-btn{border-color:var(--theme);color:var(--theme-dark)}
+  .event-screen .cta:hover{background:var(--theme);color:#fffaf3}
+  .event-screen .detail-label{letter-spacing:.2em}
+  .theme-ornament{font-size:29px;letter-spacing:.18em;color:var(--theme);margin:0 auto 5px;text-align:center;animation:ornamentSway 5s ease-in-out infinite}
+  @keyframes ornamentSway{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-5px) rotate(1deg)}}
+  .event-art{font-size:26px;letter-spacing:.28em;color:var(--theme);margin:8px 0 0;animation:artGlow 3s ease-in-out infinite alternate}
+  @keyframes artGlow{from{opacity:.55;filter:drop-shadow(0 0 0 transparent)}to{opacity:1;filter:drop-shadow(0 0 8px color-mix(in srgb,var(--theme-accent) 70%,transparent))}}
+  .event-screen[data-theme="red"] .event-card{background:linear-gradient(145deg,#fff5f0,#f7e1df)}
+  .event-screen[data-theme="yellow"] .event-card{background:linear-gradient(145deg,#fffced,#fff0b8)}
+  .event-screen[data-theme="green"] .event-card{background:linear-gradient(145deg,#f9fff4,#e0efdc)}
+  .event-screen[data-theme="gold"] .event-card{background:linear-gradient(145deg,#fffaf0,#f4e2b8)}
+  .event-screen .event-sub{color:var(--theme-ink)}
+  .event-screen .avatars.couple-art img{animation:coupleFloat 4.5s ease-in-out infinite, portraitReveal .9s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes portraitReveal{from{opacity:0;transform:translateY(24px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+
+  /* Continuous ambient wedding motion */
+  .shell:after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.24;z-index:5;background:radial-gradient(circle at 15% 20%,#fff8dc 0 1px,transparent 2px),radial-gradient(circle at 75% 35%,#caa768 0 1px,transparent 2px),radial-gradient(circle at 48% 72%,#fff 0 1.5px,transparent 2.5px);background-size:83px 97px,117px 133px,151px 121px;animation:twinkle 6s ease-in-out infinite alternate}
+  .shell{isolation:isolate}
+  .ambient-petal{position:absolute;top:-30px;left:var(--left);z-index:4;pointer-events:none;color:var(--gold);opacity:0;animation:petalFall var(--duration) linear var(--delay) infinite}
+  @keyframes twinkle{0%{opacity:.10;transform:translateY(0)}100%{opacity:.38;transform:translateY(-5px)}}
+  @keyframes petalFall{0%{transform:translate3d(0,-8vh,0) rotate(0deg);opacity:0}10%{opacity:.45}85%{opacity:.28}100%{transform:translate3d(var(--drift),110vh,0) rotate(330deg);opacity:0}}
+  .couple-art{height:auto!important;min-height:0!important;align-items:center!important;margin:12px auto 18px!important;overflow:visible}
+  .couple-art img{display:block;width:min(82vw,300px);max-height:330px;object-fit:contain;filter:drop-shadow(0 12px 16px #9a74452a);animation:coupleFloat 4.5s ease-in-out infinite;transform-origin:50% 90%}
+  @keyframes coupleFloat{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(-8px) rotate(.4deg)}}
+  .music-toggle{position:fixed;right:14px;bottom:14px;z-index:20;border:1px solid var(--gold2);border-radius:99px;background:#fffaf0eF;color:var(--ink);padding:11px 14px;font-size:10px;letter-spacing:.08em;box-shadow:0 4px 18px #6e4b2414;display:flex;align-items:center;gap:8px}
+  .music-toggle .music-dot{width:7px;height:7px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 4px #8b9a7b22}
+  .music-toggle[aria-pressed="true"] .music-dot{background:var(--gold);animation:pulse 1.5s infinite}
+  @keyframes pulse{50%{box-shadow:0 0 0 7px #b28a4e00}}
+  @media(prefers-reduced-motion:reduce){.shell:after,.ambient-petal,.couple-art img{animation:none!important}}
+
   @media(min-width:600px){body{padding:24px 0}.shell{border-radius:28px;min-height:calc(100svh - 48px)}.screen{min-height:calc(100svh - 48px)}}
   @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 
@@ -100,6 +152,8 @@
 <body>
 <div class="shell">
 <div class="grain"></div>
+  <button class="music-toggle" id="musicToggle" aria-pressed="false" aria-label="Play soothing background music"><span class="music-dot"></span><span id="musicLabel">Play soft music</span></button>
+  <div id="petalLayer" aria-hidden="true"></div>
 <section class="screen active" id="intro">
 <span class="floating f1">✦</span><span class="floating f2">✧</span><span class="floating f3">✦</span><span class="floating f4">✧</span>
 <div class="eyebrow">A little mystery · A lot of love</div>
@@ -129,46 +183,23 @@
 <div class="tiny">THE FINAL CLUE</div>
 </section>
 <section class="screen" id="clue3">
-<div class="clue-num">THE STORY · 03</div>
-<div class="reveal-line">You know the feeling.<br/>Now meet the <em>two hearts</em> behind it.</div>
-<div class="avatars"><img alt="Illustrated portrait of Naman and Pratishtha in wedding attire" class="couple-art" src="couple-avatar.png"/></div>
-<button class="cta" onclick="go('reveal')">Reveal the names</button>
-<div class="tiny">SAVE THE BIGGEST REVEAL FOR LAST</div>
-</section>
-<section class="screen" id="reveal">
+    <div class="clue-num">THE STORY · 03</div>
+    <div class="monogram"><span class="n">N</span><span class="p">P</span></div>
+    <div class="reveal-line">One last secret remains…<br><em>who is this story about?</em></div>
+    <div class="ornament"><span>✧</span></div>
+    <p class="copy">Take a breath. The names are just one tap away.</p>
+    <button class="cta" onclick="go('reveal')">Reveal the names</button>
+    <div class="tiny">SAVE THE BIGGEST REVEAL FOR LAST</div>
+  </section>
+
+  <section class="screen" id="reveal">
 <div class="eyebrow">With full hearts &amp; happy tears</div>
 <div class="monogram"><span class="n">N</span><span class="p">P</span></div>
 <p class="copy" style="margin-bottom:8px">THE SECRET IS OUT</p>
 <div class="name-reveal">Naman<br/><span style="font-size:28px;color:var(--rose)">&amp;</span><br/>Pratishtha</div>
 <h2 style="font-size:30px;margin-top:0">are finally getting married!</h2>
-<div class="avatars"><img alt="Illustrated portrait of Naman and Pratishtha in wedding attire" class="couple-art" src="couple-avatar.png"/></div>
-<p class="copy">Five celebrations. One beautiful beginning.<br/>We saved you a place in our story.</p>
-<button class="cta" onclick="go('events')">Explore the celebrations</button>
-<div class="tiny">WITH LOVE, THE FAMILIES</div>
-</section>
-<section class="screen" id="events">
-<div class="monogram"><span class="n">N</span><span class="p">P</span></div>
-<div class="eyebrow">The celebrations</div>
-<h2>Five chapters<br/>of our forever</h2>
-<p class="copy" style="margin-bottom:8px">Tap a celebration to open its invitation.</p>
-<div class="event-menu">
-<button class="event-tile" onclick="openEvent(0)"><span>Ring Ceremony</span><small>Chapter I · The promise</small></button>
-<button class="event-tile" onclick="openEvent(1)"><span>Mehndi</span><small>Chapter II · Colour &amp; joy</small></button>
-<button class="event-tile" onclick="openEvent(2)"><span>Haldi</span><small>Chapter III · Golden moments</small></button>
-<button class="event-tile" onclick="openEvent(3)"><span>Kirtan</span><small>Chapter IV · Blessings</small></button>
-<button class="event-tile" onclick="openEvent(4)" style="grid-column:1/-1"><span>The Wedding</span><small>Chapter V · The beginning</small></button>
-</div>
-<div class="footer-note">Your presence is our favourite gift.</div>
-</section>
-<section class="screen" id="event">
-<div class="eyebrow">You are warmly invited</div>
-<div class="monogram" style="margin-top:12px"><span class="n">N</span><span class="p">P</span></div>
-<div class="event-card">
-<div class="event-type" id="eventType">Chapter I</div>
-<div class="event-title" id="eventTitle">Ring Ceremony</div>
-<p class="event-sub" id="eventSub">A promise made, a new chapter begins.</p>
-<div class="avatars"><img alt="Illustrated portrait of Naman and Pratishtha in wedding attire" class="couple-art" src="couple-avatar.png"/></div>
-<div class="name-reveal" style="font-size:35px;margin:0 0 10px">Naman <span style="font-size:22px;color:var(--rose)">&amp;</span> Pratishtha</div>
+<div class="avatars couple-art"><img src="couple-avatar.png" alt="Illustrated portrait of Naman and Pratishtha" /></div>
+      <div class="name-reveal" style="font-size:35px;margin:0 0 10px">Naman <span style="font-size:22px;color:var(--rose)">&amp;</span> Pratishtha</div>
 <div class="details">
 <div><span class="detail-label">Date</span><strong id="eventDate">Sunday, 25 October 2026</strong></div>
 <div><span class="detail-label">Time</span><strong id="eventTime">11:30 AM onwards</strong></div>
@@ -186,17 +217,41 @@
 </div>
 <script>
 const events = [
- {type:"Chapter I · The promise",title:"Ring Ceremony",sub:"A ring, a promise, and the first page of forever.",date:"Sunday, 25 October 2026",time:"11:30 AM onwards",venue:"The Courtyard, Ashok Vihar, Delhi"},
- {type:"Chapter II · Colour & joy",title:"Mehndi",sub:"Henna on our hands, music in our hearts, joy all around.",date:"Monday, 26 October 2026",time:"4:00 PM onwards",venue:"Gulab Bagh, Model Town, Delhi"},
- {type:"Chapter III · Golden moments",title:"Haldi",sub:"A little sunshine, a little turmeric, and a lot of laughter.",date:"Tuesday, 27 October 2026",time:"10:00 AM onwards",venue:"The Marigold House, Punjabi Bagh, Delhi"},
- {type:"Chapter IV · Blessings",title:"Kirtan",sub:"An evening of prayer, gratitude, and blessings for our new journey.",date:"Wednesday, 28 October 2026",time:"6:00 PM onwards",venue:"Sukh Shanti Bhawan, Rohini, Delhi"},
- {type:"Chapter V · The beginning",title:"The Wedding",sub:"Two souls, two families, one beautiful forever.",date:"Thursday, 29 October 2026",time:"7:00 PM onwards",venue:"The Ivory Lawn, New Delhi"}
+ {type:"Chapter I · The promise",title:"Ring Ceremony",sub:"A promise sealed in love, beneath a shower of rose petals.",date:"Sunday, 25 October 2026",time:"11:30 AM onwards",venue:"The Courtyard, Ashok Vihar, Delhi",theme:"red",art:"❧ ♡ ❧"},
+ {type:"Chapter II · Colour & joy",title:"Mehndi",sub:"Intricate henna, leafy details, and the happiest kind of togetherness.",date:"Monday, 26 October 2026",time:"4:00 PM onwards",venue:"Gulab Bagh, Model Town, Delhi",theme:"green",art:"❧ ❋ ❧"},
+ {type:"Chapter III · Golden moments",title:"Haldi",sub:"Sunshine, marigolds, turmeric and laughter in every corner.",date:"Tuesday, 27 October 2026",time:"10:00 AM onwards",venue:"The Marigold House, Punjabi Bagh, Delhi",theme:"yellow",art:"✺ ❋ ✺"},
+ {type:"Chapter IV · Blessings",title:"Kirtan",sub:"An evening of devotion, sacred melodies and heartfelt blessings.",date:"Wednesday, 28 October 2026",time:"6:00 PM onwards",venue:"Sukh Shanti Bhawan, Rohini, Delhi",theme:"red",art:"ॐ ✦ ॐ"},
+ {type:"Chapter V · The beginning",title:"The Wedding",sub:"Two souls, two families, one golden beginning to forever.",date:"Thursday, 29 October 2026",time:"7:00 PM onwards",venue:"The Ivory Lawn, New Delhi",theme:"gold",art:"✧ ❦ ✧"}
 ];
 let currentEvent=0;
+// A soft, original ambient drone is generated locally after a guest taps Play.
+let audioCtx=null, musicNodes=[], musicOn=false;
+function startMusic(){
+  const AC=window.AudioContext||window.webkitAudioContext;
+  if(!AC)return;
+  if(!audioCtx) audioCtx=new AC();
+  audioCtx.resume();
+  // Warm, quiet sustained notes; no downloaded track or external dependency.
+  const master=audioCtx.createGain(); master.gain.value=0.022; master.connect(audioCtx.destination);
+  const notes=[174.61,220.00,261.63,329.63];
+  notes.forEach((freq,i)=>{
+    const osc=audioCtx.createOscillator(), gain=audioCtx.createGain(), filter=audioCtx.createBiquadFilter();
+    osc.type=i===0?'sine':'triangle';osc.frequency.value=freq;filter.type='lowpass';filter.frequency.value=700;
+    gain.gain.value=[0.32,0.18,0.12,0.07][i];osc.connect(filter);filter.connect(gain);gain.connect(master);osc.start();musicNodes.push(osc,gain,filter);
+  });
+  musicNodes.push(master);musicOn=true;document.getElementById('musicToggle').setAttribute('aria-pressed','true');document.getElementById('musicLabel').textContent='Soft music on';
+}
+function stopMusic(){
+  if(audioCtx){audioCtx.suspend();}
+  musicOn=false;document.getElementById('musicToggle').setAttribute('aria-pressed','false');document.getElementById('musicLabel').textContent='Play soft music';
+}
+document.getElementById('musicToggle').addEventListener('click',()=>{if(musicOn)stopMusic();else startMusic();});
+const petalLayer=document.getElementById('petalLayer');
+for(let i=0;i<13;i++){const p=document.createElement('span');p.className='ambient-petal';p.textContent=['✧','✦','❀','·'][i%4];p.style.setProperty('--left',(i*8+Math.random()*5)+'%');p.style.setProperty('--duration',(12+Math.random()*13)+'s');p.style.setProperty('--delay',(-Math.random()*24)+'s');p.style.setProperty('--drift',(-35+Math.random()*70)+'px');p.style.left=(i*8+Math.random()*5)+'%';petalLayer.appendChild(p);}
 function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));const target=document.getElementById(id);target.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
 function openEvent(i){currentEvent=i;renderEvent();go('event');}
 function shiftEvent(delta){currentEvent=Math.max(0,Math.min(events.length-1,currentEvent+delta));renderEvent();}
-function renderEvent(){const e=events[currentEvent];document.getElementById('eventType').textContent=e.type;document.getElementById('eventTitle').textContent=e.title;document.getElementById('eventSub').textContent=e.sub;document.getElementById('eventDate').textContent=e.date;document.getElementById('eventTime').textContent=e.time;document.getElementById('eventVenue').textContent=e.venue;document.getElementById('prevEvent').disabled=currentEvent===0;document.getElementById('nextEvent').disabled=currentEvent===events.length-1;document.getElementById('dots').innerHTML=events.map((_,i)=>`<span class="dot ${i===currentEvent?'on':''}"></span>`).join('');}
+function renderEvent(){const e=events[currentEvent];document.getElementById('event').dataset.theme=e.theme;document.getElementById('eventArt').textContent=e.art;document.getElementById('eventType').textContent=e.type;document.getElementById('eventTitle').textContent=e.title;document.getElementById('eventSub').textContent=e.sub;document.getElementById('eventDate').textContent=e.date;document.getElementById('eventTime').textContent=e.time;document.getElementById('eventVenue').textContent=e.venue;document.getElementById('prevEvent').disabled=currentEvent===0;document.getElementById('nextEvent').disabled=currentEvent===events.length-1;document.getElementById('dots').innerHTML=events.map((_,i)=>`<span class="dot ${i===currentEvent?'on':''}"></span>`).join('');}
 const env=document.getElementById('envelope');function openEnvelope(){env.classList.add('open');setTimeout(()=>go('clue1'),650);}env.addEventListener('click',openEnvelope);env.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openEnvelope();}});
 renderEvent();
 </script>
