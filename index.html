@@ -12,7 +12,8 @@
 
 
 /* Reliable touch/click behavior on the monogram cover */
-#intro.cover-screen{display:flex;pointer-events:auto;touch-action:manipulation}
+#intro.cover-screen{pointer-events:none;touch-action:manipulation}
+#intro.cover-screen.active{display:flex;pointer-events:auto}
 #intro .cover-trigger{z-index:8;cursor:pointer;pointer-events:auto;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 #intro .cover-trigger *{pointer-events:none}
 #intro.unfolding .cover-trigger{pointer-events:none}
