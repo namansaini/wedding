@@ -1,10 +1,11 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<meta name="theme-color" content="#f7f1e8" />
-<title>A Little Mystery | Naman & Pratishtha</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#f7f1e8" name="theme-color"/>
+<title>A Little Mystery | Naman &amp; Pratishtha</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
   :root{--paper:#f7f1e8;--paper2:#fffaf3;--ink:#3c3029;--muted:#7e6c5c;--gold:#b28a4e;--gold2:#d8bd8a;--rose:#c98f85;--sage:#8b9a7b;--line:rgba(178,138,78,.35)}
@@ -69,109 +70,119 @@
   .footer-note{font:italic 17px 'Cormorant Garamond',serif;color:var(--muted);text-align:center;margin-top:20px}
   @media(min-width:600px){body{padding:24px 0}.shell{border-radius:28px;min-height:calc(100svh - 48px)}.screen{min-height:calc(100svh - 48px)}}
   @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+  :root{--paper:#fbf5eb;--paper2:#fffaf3;--ink:#382920;--gold:#b58b4b;--gold2:#e0c995;--rose:#c58b83}
+  body{background:#eee2d1}
+  .shell{background:radial-gradient(ellipse at 50% 15%,#fffdf8 0%,#fbf4e8 48%,#efe0ca 100%)}
+  .screen:before{content:"";position:absolute;inset:13px;border:1px solid #c5a66d70;border-radius:3px;pointer-events:none}
+  .screen:after{content:"✦   ·   ✧   ·   ✦";position:absolute;top:25px;left:0;right:0;text-align:center;letter-spacing:.7em;font-size:9px;color:#b9975c;opacity:.75;pointer-events:none}
+  .couple-art{display:block;width:min(82vw,330px);height:clamp(155px,43vw,245px);object-fit:contain;object-position:center bottom;filter:drop-shadow(0 12px 14px #8a633b20);animation:coupleFloat 4s ease-in-out infinite;transform-origin:50% 90%}
+  #event .couple-art{height:190px;width:min(75vw,280px)}
+  @keyframes coupleFloat{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(-8px) rotate(.4deg)}}
+  .avatars{position:relative;isolation:isolate;display:flex;align-items:center;justify-content:center;height:auto;min-height:155px;margin:15px auto 22px}
+  .avatars:before,.avatars:after{content:"✧";position:absolute;color:#bd9959;font-size:23px;animation:twinkle 2.2s ease-in-out infinite;z-index:-1}
+  .avatars:before{left:8%;top:12%;}.avatars:after{right:8%;bottom:17%;animation-delay:.9s}
+  @keyframes twinkle{0%,100%{opacity:.25;transform:scale(.75) rotate(0)}50%{opacity:1;transform:scale(1.2) rotate(30deg)}}
+  .monogram{box-shadow:0 0 0 5px #e6d4b44d,0 8px 22px #8a633b0c}
+  .cta{box-shadow:0 5px 15px #9b794018;position:relative;overflow:hidden}
+  .cta:after{content:"";position:absolute;top:-50%;left:-45%;height:200%;width:22%;background:#fff8;transform:rotate(25deg);transition:left .7s}
+  .cta:hover:after{left:130%}
+  .event-card{box-shadow:0 16px 40px #7e5a2510;background:#fffaf1d9}
+  .event-tile{box-shadow:0 5px 16px #7e5a2508}
+  .envelope{animation:envelopeFloat 4s ease-in-out infinite}
+  @keyframes envelopeFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+  .floating{animation-duration:3.8s}
+  .name-reveal{animation:nameGlow 2.5s ease-in-out infinite alternate, revealName 1s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes revealName{from{opacity:0;transform:translateY(18px) scale(.96);letter-spacing:.08em}to{opacity:1;transform:translateY(0) scale(1);letter-spacing:normal}}
+  @media(prefers-reduced-motion:reduce){.couple-art,.envelope{animation:none}}
 </style>
 </head>
 <body>
 <div class="shell">
-  <div class="grain"></div>
-  <section class="screen active" id="intro">
-    <span class="floating f1">✦</span><span class="floating f2">✧</span><span class="floating f3">✦</span><span class="floating f4">✧</span>
-    <div class="eyebrow">A little mystery · A lot of love</div>
-    <div class="ornament"><span>❧</span></div>
-    <h1>Something<br><em style="color:var(--gold);font-style:normal">beautiful</em> is<br>about to begin.</h1>
-    <p class="copy">A secret is being kept.<br>Two families are getting ready.<br>And you, dear guest, are part of the story.</p>
-    <div class="envelope" id="envelope" role="button" tabindex="0" aria-label="Open the invitation">
-      <div class="env-body"></div><div class="env-letter"><div class="monogram" style="width:56px;height:56px;margin:0"><span class="n" style="font-size:27px">N</span><span class="p" style="font-size:24px">P</span></div></div><div class="env-flap"></div><div class="seal">N·P</div>
-    </div>
-    <button class="cta" onclick="go('clue1')">Unseal the story</button>
-    <div class="tiny">TAP TO BEGIN THE REVEAL</div>
-  </section>
-
-  <section class="screen" id="clue1">
-    <div class="monogram"><span class="n">N</span><span class="p">P</span></div>
-    <div class="clue-num">THE STORY · 01</div>
-    <div class="reveal-line">Somewhere, two families are preparing for <em>a very special celebration.</em></div>
-    <p class="copy">There will be laughter in the air, music in the rooms, and memories waiting to be made.</p>
-    <button class="cta" onclick="go('clue2')">Tell me more</button>
-    <div class="tiny">THE FIRST CLUE</div>
-  </section>
-
-  <section class="screen" id="clue2">
-    <div class="clue-num">THE STORY · 02</div>
-    <div class="reveal-line">A ring. A promise.<br><em>A forever kind of feeling.</em></div>
-    <div class="ornament"><span>♡</span></div>
-    <p class="copy">Five beautiful celebrations will bring everyone together — from joyful traditions to the moment two lives become one.</p>
-    <button class="cta" onclick="go('clue3')">One last thing…</button>
-    <div class="tiny">THE FINAL CLUE</div>
-  </section>
-
-  <section class="screen" id="clue3">
-    <div class="clue-num">THE STORY · 03</div>
-    <div class="reveal-line">You know the feeling.<br>Now meet the <em>two hearts</em> behind it.</div>
-    <div class="avatars">
-      <div class="person groom"><div class="hair"></div><div class="head"></div><div class="face">• •</div><div class="body"></div></div>
-      <div class="person bride"><div class="dupatta"></div><div class="hair"></div><div class="head"></div><div class="face">• •</div><div class="body"></div></div>
-    </div>
-    <button class="cta" onclick="go('reveal')">Reveal the names</button>
-    <div class="tiny">SAVE THE BIGGEST REVEAL FOR LAST</div>
-  </section>
-
-  <section class="screen" id="reveal">
-    <div class="eyebrow">With full hearts & happy tears</div>
-    <div class="monogram"><span class="n">N</span><span class="p">P</span></div>
-    <p class="copy" style="margin-bottom:8px">THE SECRET IS OUT</p>
-    <div class="name-reveal">Naman<br><span style="font-size:28px;color:var(--rose)">&</span><br>Pratishtha</div>
-    <h2 style="font-size:30px;margin-top:0">are finally getting married!</h2>
-    <div class="avatars">
-      <div class="person groom"><div class="hair"></div><div class="head"></div><div class="face">• •</div><div class="body"></div></div>
-      <div class="person bride"><div class="dupatta"></div><div class="hair"></div><div class="head"></div><div class="face">• •</div><div class="body"></div></div>
-    </div>
-    <p class="copy">Five celebrations. One beautiful beginning.<br>We saved you a place in our story.</p>
-    <button class="cta" onclick="go('events')">Explore the celebrations</button>
-    <div class="tiny">WITH LOVE, THE FAMILIES</div>
-  </section>
-
-  <section class="screen" id="events">
-    <div class="monogram"><span class="n">N</span><span class="p">P</span></div>
-    <div class="eyebrow">The celebrations</div>
-    <h2>Five chapters<br>of our forever</h2>
-    <p class="copy" style="margin-bottom:8px">Tap a celebration to open its invitation.</p>
-    <div class="event-menu">
-      <button class="event-tile" onclick="openEvent(0)"><span>Ring Ceremony</span><small>Chapter I · The promise</small></button>
-      <button class="event-tile" onclick="openEvent(1)"><span>Mehndi</span><small>Chapter II · Colour & joy</small></button>
-      <button class="event-tile" onclick="openEvent(2)"><span>Haldi</span><small>Chapter III · Golden moments</small></button>
-      <button class="event-tile" onclick="openEvent(3)"><span>Kirtan</span><small>Chapter IV · Blessings</small></button>
-      <button class="event-tile" style="grid-column:1/-1" onclick="openEvent(4)"><span>The Wedding</span><small>Chapter V · The beginning</small></button>
-    </div>
-    <div class="footer-note">Your presence is our favourite gift.</div>
-  </section>
-
-  <section class="screen" id="event">
-    <div class="eyebrow">You are warmly invited</div>
-    <div class="monogram" style="margin-top:12px"><span class="n">N</span><span class="p">P</span></div>
-    <div class="event-card">
-      <div class="event-type" id="eventType">Chapter I</div>
-      <div class="event-title" id="eventTitle">Ring Ceremony</div>
-      <p class="event-sub" id="eventSub">A promise made, a new chapter begins.</p>
-      <div class="avatars">
-        <div class="person groom"><div class="hair"></div><div class="head"></div><div class="face">• •</div><div class="body"></div></div>
-        <div class="person bride"><div class="dupatta"></div><div class="hair"></div><div class="head"></div><div class="face">• •</div><div class="body"></div></div>
-      </div>
-      <div class="name-reveal" style="font-size:35px;margin:0 0 10px">Naman <span style="font-size:22px;color:var(--rose)">&</span> Pratishtha</div>
-      <div class="details">
-        <div><span class="detail-label">Date</span><strong id="eventDate">Sunday, 25 October 2026</strong></div>
-        <div><span class="detail-label">Time</span><strong id="eventTime">11:30 AM onwards</strong></div>
-        <div><span class="detail-label">Venue</span><strong id="eventVenue">The Courtyard, Ashok Vihar, Delhi</strong></div>
-      </div>
-    </div>
-    <div class="event-nav">
-      <button class="nav-btn" id="prevEvent" onclick="shiftEvent(-1)">← Previous</button>
-      <button class="nav-btn" onclick="go('events')">All celebrations</button>
-      <button class="nav-btn" id="nextEvent" onclick="shiftEvent(1)">Next →</button>
-    </div>
-    <div class="dots" id="dots"></div>
-    <button class="back" onclick="go('reveal')">↶ Back to the beginning</button>
-  </section>
+<div class="grain"></div>
+<section class="screen active" id="intro">
+<span class="floating f1">✦</span><span class="floating f2">✧</span><span class="floating f3">✦</span><span class="floating f4">✧</span>
+<div class="eyebrow">A little mystery · A lot of love</div>
+<div class="ornament"><span>❧</span></div>
+<h1>Something<br/><em style="color:var(--gold);font-style:normal">beautiful</em> is<br/>about to begin.</h1>
+<p class="copy">A secret is being kept.<br/>Two families are getting ready.<br/>And you, dear guest, are part of the story.</p>
+<div aria-label="Open the invitation" class="envelope" id="envelope" role="button" tabindex="0">
+<div class="env-body"></div><div class="env-letter"><div class="monogram" style="width:56px;height:56px;margin:0"><span class="n" style="font-size:27px">N</span><span class="p" style="font-size:24px">P</span></div></div><div class="env-flap"></div><div class="seal">N·P</div>
+</div>
+<button class="cta" onclick="go('clue1')">Unseal the story</button>
+<div class="tiny">TAP TO BEGIN THE REVEAL</div>
+</section>
+<section class="screen" id="clue1">
+<div class="monogram"><span class="n">N</span><span class="p">P</span></div>
+<div class="clue-num">THE STORY · 01</div>
+<div class="reveal-line">Somewhere, two families are preparing for <em>a very special celebration.</em></div>
+<p class="copy">There will be laughter in the air, music in the rooms, and memories waiting to be made.</p>
+<button class="cta" onclick="go('clue2')">Tell me more</button>
+<div class="tiny">THE FIRST CLUE</div>
+</section>
+<section class="screen" id="clue2">
+<div class="clue-num">THE STORY · 02</div>
+<div class="reveal-line">A ring. A promise.<br/><em>A forever kind of feeling.</em></div>
+<div class="ornament"><span>♡</span></div>
+<p class="copy">Five beautiful celebrations will bring everyone together — from joyful traditions to the moment two lives become one.</p>
+<button class="cta" onclick="go('clue3')">One last thing…</button>
+<div class="tiny">THE FINAL CLUE</div>
+</section>
+<section class="screen" id="clue3">
+<div class="clue-num">THE STORY · 03</div>
+<div class="reveal-line">You know the feeling.<br/>Now meet the <em>two hearts</em> behind it.</div>
+<div class="avatars"><img alt="Illustrated portrait of Naman and Pratishtha in wedding attire" class="couple-art" src="couple-avatar.png"/></div>
+<button class="cta" onclick="go('reveal')">Reveal the names</button>
+<div class="tiny">SAVE THE BIGGEST REVEAL FOR LAST</div>
+</section>
+<section class="screen" id="reveal">
+<div class="eyebrow">With full hearts &amp; happy tears</div>
+<div class="monogram"><span class="n">N</span><span class="p">P</span></div>
+<p class="copy" style="margin-bottom:8px">THE SECRET IS OUT</p>
+<div class="name-reveal">Naman<br/><span style="font-size:28px;color:var(--rose)">&amp;</span><br/>Pratishtha</div>
+<h2 style="font-size:30px;margin-top:0">are finally getting married!</h2>
+<div class="avatars"><img alt="Illustrated portrait of Naman and Pratishtha in wedding attire" class="couple-art" src="couple-avatar.png"/></div>
+<p class="copy">Five celebrations. One beautiful beginning.<br/>We saved you a place in our story.</p>
+<button class="cta" onclick="go('events')">Explore the celebrations</button>
+<div class="tiny">WITH LOVE, THE FAMILIES</div>
+</section>
+<section class="screen" id="events">
+<div class="monogram"><span class="n">N</span><span class="p">P</span></div>
+<div class="eyebrow">The celebrations</div>
+<h2>Five chapters<br/>of our forever</h2>
+<p class="copy" style="margin-bottom:8px">Tap a celebration to open its invitation.</p>
+<div class="event-menu">
+<button class="event-tile" onclick="openEvent(0)"><span>Ring Ceremony</span><small>Chapter I · The promise</small></button>
+<button class="event-tile" onclick="openEvent(1)"><span>Mehndi</span><small>Chapter II · Colour &amp; joy</small></button>
+<button class="event-tile" onclick="openEvent(2)"><span>Haldi</span><small>Chapter III · Golden moments</small></button>
+<button class="event-tile" onclick="openEvent(3)"><span>Kirtan</span><small>Chapter IV · Blessings</small></button>
+<button class="event-tile" onclick="openEvent(4)" style="grid-column:1/-1"><span>The Wedding</span><small>Chapter V · The beginning</small></button>
+</div>
+<div class="footer-note">Your presence is our favourite gift.</div>
+</section>
+<section class="screen" id="event">
+<div class="eyebrow">You are warmly invited</div>
+<div class="monogram" style="margin-top:12px"><span class="n">N</span><span class="p">P</span></div>
+<div class="event-card">
+<div class="event-type" id="eventType">Chapter I</div>
+<div class="event-title" id="eventTitle">Ring Ceremony</div>
+<p class="event-sub" id="eventSub">A promise made, a new chapter begins.</p>
+<div class="avatars"><img alt="Illustrated portrait of Naman and Pratishtha in wedding attire" class="couple-art" src="couple-avatar.png"/></div>
+<div class="name-reveal" style="font-size:35px;margin:0 0 10px">Naman <span style="font-size:22px;color:var(--rose)">&amp;</span> Pratishtha</div>
+<div class="details">
+<div><span class="detail-label">Date</span><strong id="eventDate">Sunday, 25 October 2026</strong></div>
+<div><span class="detail-label">Time</span><strong id="eventTime">11:30 AM onwards</strong></div>
+<div><span class="detail-label">Venue</span><strong id="eventVenue">The Courtyard, Ashok Vihar, Delhi</strong></div>
+</div>
+</div>
+<div class="event-nav">
+<button class="nav-btn" id="prevEvent" onclick="shiftEvent(-1)">← Previous</button>
+<button class="nav-btn" onclick="go('events')">All celebrations</button>
+<button class="nav-btn" id="nextEvent" onclick="shiftEvent(1)">Next →</button>
+</div>
+<div class="dots" id="dots"></div>
+<button class="back" onclick="go('reveal')">↶ Back to the beginning</button>
+</section>
 </div>
 <script>
 const events = [
