@@ -144,19 +144,15 @@ const events=[
 {type:"Chapter IV · Blessings",title:"Kirtan",sub:"An evening of devotion, sacred melodies and heartfelt blessings.",date:"Wednesday, 28 October 2026",time:"6:00 PM onwards",venue:"Sukh Shanti Bhawan, Rohini, Delhi",theme:"red",art:"ॐ ✦ ॐ",image:"kirtan-couple.png"},
 {type:"Chapter V · The beginning",title:"The Wedding",sub:"Two souls, two families, one golden beginning to forever.",date:"Thursday, 29 October 2026",time:"7:00 PM onwards",venue:"The Ivory Lawn, New Delhi",theme:"gold",art:"✧ ❦ ✧",image:"wedding-couple.png"}];
 let currentEvent=0;
-function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo({top:0,behavior:'smooth'});}
+function go(id){
+ const target=document.getElementById(id);
+ if(!target)return;
+ document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+ target.classList.add('active');
+ window.scrollTo({top:0,behavior:'smooth'});
+}
 function revealNames(){go('reveal');document.querySelector('#reveal .reveal-names').style.animation='none';void document.querySelector('#reveal .reveal-names').offsetWidth;document.querySelector('#reveal .reveal-names').style.animation='nameGlow 2.6s ease-in-out infinite alternate, revealUp .9s cubic-bezier(.2,.8,.2,1) both';}
-function openEnvelope(){
- const cover=document.getElementById('intro');
- if(!cover || cover.classList.contains('unfolding')) return;
- cover.classList.add('unfolding');
- window.setTimeout(()=>{ cover.classList.remove('unfolding'); go('clue1'); }, 950);
-}
-const openStoryButton=document.getElementById('openStory');
-if(openStoryButton){
- openStoryButton.addEventListener('click',openEnvelope);
- openStoryButton.addEventListener('touchend',function(ev){ev.preventDefault();openEnvelope();},{passive:false});
-}
+function openEnvelope(){const cover=document.getElementById('intro');if(!cover||cover.classList.contains('unfolding'))return;cover.classList.add('unfolding');setTimeout(()=>{cover.classList.remove('unfolding');go('clue1');},950);}const openStoryButton=document.getElementById('openStory');if(openStoryButton)openStoryButton.addEventListener('click',openEnvelope);
 function openEvent(i){currentEvent=i;renderEvent();go('event');}
 function shiftEvent(delta){currentEvent=Math.max(0,Math.min(events.length-1,currentEvent+delta));renderEvent();}
 function renderEvent(){const e=events[currentEvent],screen=document.getElementById('event');screen.dataset.theme=e.theme;document.getElementById('eventCouple').src=e.image;document.getElementById('eventCouple').alt='Naman and Pratishtha in '+e.title+' outfits';document.getElementById('eventCouple').style.animation='none';void document.getElementById('eventCouple').offsetWidth;document.getElementById('eventCouple').style.animation='coupleFloat 4.5s ease-in-out infinite, portraitIn .9s cubic-bezier(.2,.8,.2,1) both';document.getElementById('eventArt').textContent=e.art;document.getElementById('eventType').textContent=e.type;document.getElementById('eventTitle').textContent=e.title;document.getElementById('eventSub').textContent=e.sub;document.getElementById('eventDate').textContent=e.date;document.getElementById('eventTime').textContent=e.time;document.getElementById('eventVenue').textContent=e.venue;document.getElementById('prevEvent').disabled=currentEvent===0;document.getElementById('nextEvent').disabled=currentEvent===events.length-1;document.getElementById('dots').innerHTML=events.map((_,i)=>`<span class="dot ${i===currentEvent?'on':''}"></span>`).join('');}
